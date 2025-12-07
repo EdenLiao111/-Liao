@@ -22,7 +22,7 @@ const STATIC_ITEMS: PortfolioItem[] = [
     id: 'static-1',
     type: 'video',
     title: '国风',
-    url: encodeURI('https://res.cloudinary.com/dk28stjwf/video/upload/v1765126738/10%E6%9C%8829%E6%97%A5_hcir9n.mp4'),
+    url: encodeURI('https://res.cloudinary.com/dk28stjwf/video/upload/v1765128332/guofeng_wqrzma.mp4'),
     description: 'AIGC Video Art',
     timestamp: Date.now() + 6000
   },
