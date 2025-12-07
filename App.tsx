@@ -8,6 +8,66 @@ import CoverPage from './components/CoverPage';
 import { PortfolioItem } from './types';
 import { getPortfolioItems, savePortfolioItem, deletePortfolioItem } from './utils/db';
 
+// Static Portfolio Items Configuration
+const STATIC_ITEMS: PortfolioItem[] = [
+   {
+    id: 'static-1',
+    type: 'video',
+    title: '穿越到异世界我成了天才',
+    url: encodeURI('https://res.cloudinary.com/dk28stjwf/video/upload/v1765127404/%E7%A9%BF%E8%B6%8A%E5%88%B0%E5%BC%82%E4%B8%96%E7%95%8C%E6%88%91%E6%88%90%E4%BA%86%E5%A4%A9%E6%89%8D_y7mhl5.mp4'),
+    description: 'AIGC Video Art',
+    timestamp: Date.now() + 7000
+  },
+  {
+    id: 'static-1',
+    type: 'video',
+    title: '国风',
+    url: encodeURI('https://res.cloudinary.com/dk28stjwf/video/upload/v1765126738/10%E6%9C%8829%E6%97%A5_hcir9n.mp4'),
+    description: 'AIGC Video Art',
+    timestamp: Date.now() + 6000
+  },
+  {
+    id: 'static-2',
+    type: 'video',
+    title: '沈星回',
+    url: encodeURI('https://res.cloudinary.com/dk28stjwf/video/upload/v1765126675/11%E6%9C%882%E6%97%A5_1_iqzfyu.mp4'),
+    description: 'AIGC Video Art',
+    timestamp: Date.now() + 5000
+  },
+  {
+    id: 'static-3',
+    type: 'video',
+    title: 'why not',
+    url: encodeURI('https://res.cloudinary.com/dk28stjwf/video/upload/why_not_bagkb1.mp4'),
+    description: 'AIGC Video Art',
+    timestamp: Date.now() + 4000
+  },
+  {
+    id: 'static-4',
+    type: 'video',
+    title: '变形记',
+    url: encodeURI('https://res.cloudinary.com/dk28stjwf/video/upload/v1765126985/%E5%8F%98%E5%BD%A2%E8%AE%B0__%E5%8E%8B%E7%BC%A9_hdq2cq.mp4'),
+    description: 'AIGC Video Art',
+    timestamp: Date.now() + 3000
+  },
+  {
+    id: 'static-5',
+    type: 'video',
+    title: '工位越近，素质越低',
+    url: encodeURI('https://res.cloudinary.com/dk28stjwf/video/upload/v1765126559/%E5%B7%A5%E4%BD%8D%E8%B6%8A%E8%BF%91_%E7%B4%A0%E8%B4%A8%E8%B6%8A%E4%BD%8E_ix2h30.mp4'),
+    description: 'AIGC Video Art',
+    timestamp: Date.now() + 2000
+  },
+  {
+    id: 'static-6',
+    type: 'video',
+    title: '琉璃山',
+    url: encodeURI('https://res.cloudinary.com/dk28stjwf/video/upload/v1765126344/%E7%8E%BB%E7%92%83%E5%B1%B1_hq2bai.mp4'),
+    description: 'AIGC Video Art',
+    timestamp: Date.now() + 1000
+  }
+];
+
 const App: React.FC = () => {
   // State
   const [view, setView] = useState<'cover' | 'gallery'>('cover');
@@ -18,14 +78,18 @@ const App: React.FC = () => {
   const [isUploadOpen, setIsUploadOpen] = useState(false);
   const [viewingItem, setViewingItem] = useState<PortfolioItem | null>(null);
 
-  // Load items from IndexedDB on mount
+  // Load items from IndexedDB on mount and merge with Static Items
   useEffect(() => {
     const loadItems = async () => {
       try {
         const loadedItems = await getPortfolioItems();
-        setItems(loadedItems);
+        // Merge static items with user uploaded items
+        // Static items are prepended to appear first
+        setItems([...STATIC_ITEMS, ...loadedItems]);
       } catch (e) {
         console.error("Failed to load items", e);
+        // Fallback to static items if DB fails
+        setItems(STATIC_ITEMS);
       } finally {
         setIsLoading(false);
       }
@@ -47,9 +111,8 @@ const App: React.FC = () => {
     try {
       // 1. Save to DB
       await savePortfolioItem(newItem, file);
-      // 2. Update Local State (Create a temporary URL for immediate display if needed, 
-      // but savePortfolioItem already expects us to handle the UI update)
-      // We re-fetch or just prepend. Prepending is faster.
+      // 2. Update Local State 
+      // We manually add the new item to the state to avoid a full reload
       setItems(prev => [newItem, ...prev]);
     } catch (e) {
       console.error("Failed to save item", e);
@@ -58,17 +121,19 @@ const App: React.FC = () => {
   };
 
   const handleDelete = async (id: string) => {
+    // Check if it's a static item
+    if (id.startsWith('static-')) {
+      alert("Static portfolio items cannot be deleted.");
+      return;
+    }
+
     // Optimistic Update: Remove from UI immediately so it feels responsive
     setItems(prev => prev.filter(item => item.id !== id));
     
     try {
       await deletePortfolioItem(id);
-      // If successful, we are good.
     } catch (e) {
       console.error("Failed to delete", e);
-      // Optional: Revert state if delete fails? 
-      // For this app, it's better to just log it, as re-adding is complex without refetching.
-      // Ideally we reload from DB if it failed.
       alert("Error deleting item from storage. Please refresh.");
     }
   };
