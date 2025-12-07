@@ -14,7 +14,7 @@ const STATIC_ITEMS: PortfolioItem[] = [
     id: 'static-1',
     type: 'video',
     title: '穿越到异世界我成了天才',
-    url: encodeURI('https://res.cloudinary.com/dk28stjwf/video/upload/v1765127404/%E7%A9%BF%E8%B6%8A%E5%88%B0%E5%BC%82%E4%B8%96%E7%95%8C%E6%88%91%E6%88%90%E4%BA%86%E5%A4%A9%E6%89%8D_y7mhl5.mp4'),
+    url: encodeURI('https://res.cloudinary.com/dk28stjwf/video/upload/v1765128253/chuanyue_brl4gx.mp4'),
     description: 'AIGC Video Art',
     timestamp: Date.now() + 7000
   },
@@ -30,7 +30,7 @@ const STATIC_ITEMS: PortfolioItem[] = [
     id: 'static-2',
     type: 'video',
     title: '沈星回',
-    url: encodeURI('https://res.cloudinary.com/dk28stjwf/video/upload/v1765126675/11%E6%9C%882%E6%97%A5_1_iqzfyu.mp4'),
+    url: encodeURI('https://res.cloudinary.com/dk28stjwf/video/upload/v1765128294/shenxinhui_cwqbwx.mp4'),
     description: 'AIGC Video Art',
     timestamp: Date.now() + 5000
   },
@@ -46,7 +46,7 @@ const STATIC_ITEMS: PortfolioItem[] = [
     id: 'static-4',
     type: 'video',
     title: '变形记',
-    url: encodeURI('https://res.cloudinary.com/dk28stjwf/video/upload/v1765126985/%E5%8F%98%E5%BD%A2%E8%AE%B0__%E5%8E%8B%E7%BC%A9_hdq2cq.mp4'),
+    url: encodeURI('https://res.cloudinary.com/dk28stjwf/video/upload/v1765128204/change_eb0laz.mp4'),
     description: 'AIGC Video Art',
     timestamp: Date.now() + 3000
   },
@@ -54,7 +54,7 @@ const STATIC_ITEMS: PortfolioItem[] = [
     id: 'static-5',
     type: 'video',
     title: '工位越近，素质越低',
-    url: encodeURI('https://res.cloudinary.com/dk28stjwf/video/upload/v1765126559/%E5%B7%A5%E4%BD%8D%E8%B6%8A%E8%BF%91_%E7%B4%A0%E8%B4%A8%E8%B6%8A%E4%BD%8E_ix2h30.mp4'),
+    url: encodeURI('https://res.cloudinary.com/dk28stjwf/video/upload/v1765128606/work_unlucy_bgqd9x.mp4'),
     description: 'AIGC Video Art',
     timestamp: Date.now() + 2000
   },
@@ -62,7 +62,7 @@ const STATIC_ITEMS: PortfolioItem[] = [
     id: 'static-6',
     type: 'video',
     title: '琉璃山',
-    url: encodeURI('https://res.cloudinary.com/dk28stjwf/video/upload/v1765126344/%E7%8E%BB%E7%92%83%E5%B1%B1_hq2bai.mp4'),
+    url: encodeURI('https://res.cloudinary.com/dk28stjwf/video/upload/v1765128369/glass_montain_zjw1oh.mp4'),
     description: 'AIGC Video Art',
     timestamp: Date.now() + 1000
   }
